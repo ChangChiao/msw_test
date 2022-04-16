@@ -1,5 +1,6 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
+import { faker } from "@faker-js/faker";
 
 export const handlers = [
   rest.post("/login", (req, res, ctx) => {
@@ -30,10 +31,20 @@ export const handlers = [
     }
 
     // If authenticated, return a mocked user details
+    const cart = [];
+    for (let i = 0; i < 20; i++) {
+      const item = {
+        prouctName: faker.commerce.productName(),
+        price: faker.commerce.price(100, 1000, 0),
+      };
+      cart.push(item);
+    }
+
     return res(
       ctx.status(200),
       ctx.json({
-        username: "admin",
+        username: "jason",
+        cart,
       })
     );
   }),

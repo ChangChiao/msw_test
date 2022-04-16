@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
-import poweredBy from "./powered-by-vitawind-dark.png";
 
 function App() {
-  const [count, setCount] = useState(0);
   const doLogin = async () => {
-    console.log("doLogin");
     try {
-      const result = await fetch("/login", { method: "POST" });
-      console.log("result", result);
+      const response = await fetch("/login", { method: "POST" });
+      const result = await response.json();
+      getUser();
+      console.log("login-result", result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const response = await fetch("/user");
+      const result = await response.json();
+      console.log("user-result", result);
     } catch (error) {
       console.log(error);
     }
